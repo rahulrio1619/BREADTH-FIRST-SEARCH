@@ -73,7 +73,6 @@ Now, Queue becomes empty, So, terminate these process of iteration.
 from collections import deque
 from collections import defaultdict
 
-
 '''
 V E
 FOR EVERY EDGE
@@ -89,26 +88,38 @@ D E
 D G
 G F
 '''
-def bfs(graph,start,visited,path):
+
+def bfs(graph, start, visited, path):
     queue = deque()
     path.append(start)
     queue.append(start)
     visited[start] = True
     while len(queue) != 0:
         tmpnode = queue.popleft()
-        #TYPE UR CODE HERE
+        # TYPE UR CODE HERE
+        for neighbor in graph[tmpnode]:
+            if not visited[neighbor]:
+                visited[neighbor] = True
+                path.append(neighbor)
+                queue.append(neighbor)
     return path
 
 graph = defaultdict(list)
-v,e = map(int,input().split())
-for i in range(e):
-    #TYOE UR CODE HERE
+v, e = map(int, input().split())
 
-start = '0'
+for i in range(e):
+    # TYPE UR CODE HERE
+    u, v = input().split()
+    graph[u].append(v)
+    graph[v].append(u)  # assuming undirected graph
+
+start = 'A'  # you can change it if needed
 path = []
 visited = defaultdict(bool)
-traversedpath = bfs(graph,start,visited,path)
+
+traversedpath = bfs(graph, start, visited, path)
 print(traversedpath)
+
 
 ```
 
